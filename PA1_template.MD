@@ -60,6 +60,7 @@ colnames(SumSteps)<-c("date","steps")
 
 #hist does not shows a clear of data
 hist(SumSteps$steps, xlab="Steps", ylab="Frequency", main="Total of steps")
+
 #a plot with hist type shows better
 plot(SumSteps$date,SumSteps$steps, type="h",xlab="Days", ylab="Total Steps", main="Total steps by day", col="Purple", lwd=5)
 ```
@@ -198,3 +199,4 @@ ggplot(aveg, aes(interval, steps)) + geom_line() + facet_grid(week ~ .) +
     xlab("Interval") + ylab("Number of steps")+
     facet_wrap(~ week, ncol=1)
 ```    
+![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-13-1.png) 
