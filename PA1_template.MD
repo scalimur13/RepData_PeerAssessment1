@@ -61,9 +61,12 @@ colnames(SumSteps)<-c("date","steps")
 #hist does not shows a clear of data
 hist(SumSteps$steps, xlab="Steps", ylab="Frequency", main="Total of steps")
 
+![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-2-1.png)
+
 #a plot with hist type shows better
 plot(SumSteps$date,SumSteps$steps, type="h",xlab="Days", ylab="Total Steps", main="Total steps by day", col="Purple", lwd=5)
 ```
+![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-2-2.png) 
 
 ```{r}
 #Calculate and report the mean and median of the total number of steps 
@@ -103,6 +106,7 @@ ggplot(data=av_steps, aes(x=interval, y=steps))+ geom_line()+
     xlab("interval")+
     ylab("average of steps")
 ```
+![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-6-1.png) 
 ```{r}
 #Which 5-minute interval, on average across all the days in the dataset, 
 #contains the maximum number of steps?
@@ -151,9 +155,11 @@ head(SumSteps_clear)
 
 #hist does not shows a clear of data
 hist(SumSteps_clear$steps, xlab="Steps", ylab="Frequency", main="Total of steps")
+![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-9-1.png) 
 #a plot with hist type shows better
 plot(SumSteps_clear$date,SumSteps_clear$steps, type="h",xlab="Days", ylab="Total Steps", main="Total steps by day", col="Purple", lwd=5)
 ```
+![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-9-2.png) 
 ```{r}
 #Calculate and report the mean and median of the total number of steps 
 #taken per day
