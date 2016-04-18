@@ -60,9 +60,9 @@ colnames(SumSteps)<-c("date","steps")
 
 #hist does not shows a clear of data
 hist(SumSteps$steps, xlab="Steps", ylab="Frequency", main="Total of steps")
-
+```
 ![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-2-1.png)
-
+```{r}
 #a plot with hist type shows better
 plot(SumSteps$date,SumSteps$steps, type="h",xlab="Days", ylab="Total Steps", main="Total steps by day", col="Purple", lwd=5)
 ```
@@ -155,7 +155,9 @@ head(SumSteps_clear)
 
 #hist does not shows a clear of data
 hist(SumSteps_clear$steps, xlab="Steps", ylab="Frequency", main="Total of steps")
+```
 ![plot of chunk unnamed-chunk-1](instructions_fig/unnamed-chunk-9-1.png) 
+```{r}
 #a plot with hist type shows better
 plot(SumSteps_clear$date,SumSteps_clear$steps, type="h",xlab="Days", ylab="Total Steps", main="Total steps by day", col="Purple", lwd=5)
 ```
