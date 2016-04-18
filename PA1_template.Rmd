@@ -1,25 +1,103 @@
 ---
+title: "PA1_template.Rmd"
+author: "Joel Calixto"
+date: "17 de abril de 2016"
+output: html_document
+---
+
+```{r setup, include=FALSE,}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
 title: "Reproducible Research: Peer Assessment 1"
 output: 
   html_document:
     keep_md: true
 ---
 
-
 ## Loading and preprocessing the data
+
+prepare URL
+
+fileurl<-"https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip"
+
+create dir
+
+if(!file.exists("./data")){dir.create("./data")}
+
+download and unzip file
+
+if(!file.exists("./data/erepdata%2Fdata%2Factivity.zip")){
+    download.file(url = fileurl, destfile = "./data/repdata%2Fdata%2Factivity.zip")
+    #unzip file
+    unzip("./data/repdata%2Fdata%2Factivity.zip", exdir = "./data")    
+}
+
+load data in R
+
+data<-read.csv("./data/activity.csv", header=TRUE)
+
+data$date<-as.Date(data$date)
 
 
 
 ## What is mean total number of steps taken per day?
+group data by date
 
+SumSteps<-aggregate(data$steps ~ data$date, FUN=sum)
+
+get a mean
+
+mean(SumSteps$steps)
 
 
 ## What is the average daily activity pattern?
+library(ggplot2)
+
+prepare grouping data
+
+av_steps<-aggregate(x=list(steps=data$steps), 
+                    by=list(interval=data$interval),
+                    FUN=mean,na.rm=TRUE)
+                    
+plot steps average
+
+ggplot(data=av_steps, aes(x=interval, y=steps))+ geom_line()+
+    geom_point(colour='blue')+
+    xlab("interval")+
+    ylab("average of steps")
 
 
 
 ## Imputing missing values
+joinning data raw with average date by interval var
 
+first rename cols by get a name valid between dataset
+
+colnames(av_steps)<-c("interval","step_join")
+
+joindata<-join(data,av_steps, by="interval")
+
+replace data NA with valid information
+
+joindata$steps[is.na(joindata$steps)]<- joindata$step_join[is.na(joindata$steps)]
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
+put name of days
+
+joindata$stepsbyday<-weekdays(joindata$date)
+
+put weekand or weekend for day
+
+joindata$week <- ifelse(joindata$stepsbyday %in% c("Saturday", "Sunday"), "Weekend", "Weekday")
+head(joindata)
+
+create plot for comparation interval and week day type
+
+aveg <- aggregate(steps ~ interval + week, data=joindata, mean)
+ggplot(aveg, aes(interval, steps)) + geom_line() + facet_grid(week ~ .) +
+    xlab("Interval") + ylab("Number of steps")+
+    facet_wrap(~ week, ncol=1)
+
